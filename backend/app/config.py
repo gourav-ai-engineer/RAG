@@ -24,7 +24,7 @@ class Settings(BaseSettings):
 
     # ── Google Gemini ──────────────────────────────────────────────────────────
     GOOGLE_API_KEY: str
-    GEMINI_MODEL: str = "gemini-2.5-flash"
+    GEMINI_MODEL: str = "gemini-3.6-flash"
     GEMINI_EMBEDDING_MODEL: str = "models/gemini-embedding-001"
     EMBEDDING_DIMENSION: int = 3072          # gemini-embedding-001 output dimension
     EMBEDDING_BATCH_SIZE: int = 5          # chunks per embed API call
