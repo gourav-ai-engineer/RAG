@@ -2,450 +2,611 @@
 
 # 🚀 Production RAG Agent
 
-### Enterprise-Grade Retrieval-Augmented Generation (RAG) Platform
+### Enterprise-Grade Retrieval-Augmented Generation Platform
 
-Build AI-powered knowledge assistants capable of ingesting, indexing, retrieving, and reasoning over your documents using **Google Gemini**, **LangGraph**, **FastAPI**, **Next.js**, **PostgreSQL**, and **Qdrant**.
+Build AI-powered knowledge assistants capable of ingesting, indexing, retrieving, and reasoning over private documents using **Google Gemini, LangGraph, FastAPI, Next.js, PostgreSQL, and Qdrant**.
 
-<p>
-
-![Python](https://img.shields.io/badge/Python-3.11-blue?logo=python)
-![FastAPI](https://img.shields.io/badge/FastAPI-Production-009688?logo=fastapi)
-![Next.js](https://img.shields.io/badge/Next.js-15-black?logo=next.js)
-![TypeScript](https://img.shields.io/badge/TypeScript-5-3178C6?logo=typescript)
-![Docker](https://img.shields.io/badge/Docker-Containerized-2496ED?logo=docker)
-![PostgreSQL](https://img.shields.io/badge/PostgreSQL-Database-336791?logo=postgresql)
-![Qdrant](https://img.shields.io/badge/Qdrant-Vector%20Database-red)
-![Google Gemini](https://img.shields.io/badge/Google-Gemini-orange?logo=google)
-
-</p>
+[![Python](https://img.shields.io/badge/Python-3.11+-blue?logo=python)](https://www.python.org/)
+[![FastAPI](https://img.shields.io/badge/FastAPI-Production-009688?logo=fastapi)](https://fastapi.tiangolo.com/)
+[![Next.js](https://img.shields.io/badge/Next.js-15-black?logo=next.js)](https://nextjs.org/)
+[![TypeScript](https://img.shields.io/badge/TypeScript-5-3178C6?logo=typescript)](https://www.typescriptlang.org/)
+[![Docker](https://img.shields.io/badge/Docker-Containerized-2496ED?logo=docker)](https://www.docker.com/)
+[![PostgreSQL](https://img.shields.io/badge/PostgreSQL-Database-336791?logo=postgresql)](https://www.postgresql.org/)
+[![Qdrant](https://img.shields.io/badge/Qdrant-Vector%20Database-red)](https://qdrant.tech/)
+[![Google Gemini](https://img.shields.io/badge/Google-Gemini-orange?logo=google)](https://ai.google.dev/)
 
 </div>
 
 ---
 
-# 📖 Overview
+## 📌 Overview
 
-Production RAG Agent is a full-stack enterprise-ready Retrieval-Augmented Generation (RAG) system designed to build intelligent AI assistants over private documents.
+**Production RAG Agent** is a full-stack, production-oriented Retrieval-Augmented Generation (RAG) platform for building intelligent AI assistants over private documents.
 
-Instead of relying only on an LLM's internal knowledge, the application retrieves relevant information from your uploaded documents using semantic search, injects that context into the prompt, and generates grounded responses with source citations.
+Instead of relying solely on an LLM's internal knowledge, the system:
 
-The project emphasizes production engineering practices including resilient document ingestion, deterministic chunking, duplicate detection, retry handling, crash recovery, and scalable vector search.
+1. Accepts and processes uploaded documents.
+2. Extracts and chunks document content.
+3. Generates semantic embeddings.
+4. Stores vectors in Qdrant.
+5. Stores document metadata in PostgreSQL.
+6. Retrieves relevant information for user queries.
+7. Uses Google Gemini to generate grounded responses.
+8. Returns source references with the generated answer.
 
----
-
-# ⭐ Highlights
-
-- Enterprise-grade RAG Architecture
-- Multi-format Document Ingestion
-- Google Gemini Integration
-- LangGraph-based AI Pipeline
-- FastAPI Backend
-- Next.js + TypeScript Frontend
-- PostgreSQL Metadata Storage
-- Qdrant Vector Database
-- Adaptive Semantic Chunking
-- Duplicate Document Detection
-- Resume-safe Indexing
-- Streaming AI Chat
-- Source Citations
-- Docker Deployment
-- Production Health Monitoring
+The project focuses on production engineering concepts such as resilient ingestion, deterministic chunking, duplicate detection, retry handling, crash recovery, and scalable vector search.
 
 ---
 
-# ✨ Features
+# ✨ Key Features
 
-## 📂 Document Processing
-
-Supports uploading and indexing:
-
-- PDF
-- DOCX
-- PPTX
-- XLSX
-- CSV
-- TXT
-- Markdown
-
-Each uploaded document is automatically:
-
-- Validated
-- Parsed
-- Chunked
-- Embedded
-- Indexed
-- Stored
+- 🤖 Enterprise-grade RAG architecture
+- 📄 Multi-format document ingestion
+- 🧠 Google Gemini integration
+- 🔄 LangGraph-based AI workflow
+- ⚡ FastAPI backend
+- 🎨 Next.js + TypeScript frontend
+- 🐘 PostgreSQL metadata storage
+- 🔍 Qdrant vector database
+- ✂️ Adaptive semantic chunking
+- 🔁 Duplicate document detection
+- ♻️ Resume-safe indexing
+- 💬 Conversational AI chat
+- 📚 Source citations
+- 🐳 Dockerized deployment
+- ❤️ Production health monitoring
 
 ---
 
-## 🧠 Adaptive Semantic Chunking
+# 🏗️ Architecture
 
-Production-friendly chunking pipeline featuring:
+```text
+                           ┌───────────────┐
+                           │     User      │
+                           └───────┬───────┘
+                                   │
+                                   ▼
+                     ┌─────────────────────────┐
+                     │   Next.js Frontend      │
+                     │   React + TypeScript    │
+                     └───────────┬─────────────┘
+                                 │
+                          REST / Streaming API
+                                 │
+                                 ▼
+                     ┌─────────────────────────┐
+                     │    FastAPI Backend      │
+                     └───────────┬─────────────┘
+                                 │
+          ┌──────────────────────┼──────────────────────┐
+          │                      │                      │
+          ▼                      ▼                      ▼
+ ┌────────────────┐    ┌────────────────┐    ┌────────────────┐
+ │ Google Gemini  │    │ PostgreSQL     │    │ Qdrant         │
+ │ LLM + AI       │    │ Metadata       │    │ Vector Store   │
+ └────────────────┘    └────────────────┘    └────────────────┘
+          │
+          ▼
+ ┌──────────────────────────────┐
+ │      LangGraph RAG Flow      │
+ │                              │
+ │ Retrieve → Context → Answer  │
+ └──────────────────────────────┘
+🧠 How the RAG Pipeline Works
+                 DOCUMENT INGESTION
+                         │
+                         ▼
+                ┌─────────────────┐
+                │ Upload Document │
+                └────────┬────────┘
+                         │
+                         ▼
+                ┌─────────────────┐
+                │ Validate File   │
+                └────────┬────────┘
+                         │
+                         ▼
+                ┌─────────────────┐
+                │ Parse Content   │
+                └────────┬────────┘
+                         │
+                         ▼
+                ┌─────────────────┐
+                │ Adaptive        │
+                │ Chunking        │
+                └────────┬────────┘
+                         │
+                         ▼
+                ┌─────────────────┐
+                │ Generate        │
+                │ Embeddings      │
+                └────────┬────────┘
+                         │
+                         ▼
+                ┌─────────────────┐
+                │ Store Vectors   │
+                │ in Qdrant       │
+                └────────┬────────┘
+                         │
+                         ▼
+                ┌─────────────────┐
+                │ Store Metadata  │
+                │ in PostgreSQL   │
+                └─────────────────┘
 
-- Recursive chunk splitting
-- Configurable chunk size
-- Chunk overlap
-- Deterministic Chunk IDs
-- Duplicate detection
-- Resume interrupted indexing
 
----
+                    USER QUESTION
+                         │
+                         ▼
+                ┌─────────────────┐
+                │ Semantic Search │
+                └────────┬────────┘
+                         │
+                         ▼
+                ┌─────────────────┐
+                │ Retrieve Best   │
+                │ Document Chunks │
+                └────────┬────────┘
+                         │
+                         ▼
+                ┌─────────────────┐
+                │ Build Context   │
+                │ with LangGraph  │
+                └────────┬────────┘
+                         │
+                         ▼
+                ┌─────────────────┐
+                │ Google Gemini   │
+                │ Generate Answer │
+                └────────┬────────┘
+                         │
+                         ▼
+                ┌─────────────────┐
+                │ Answer + Sources│
+                └─────────────────┘
+📄 Supported Document Formats
 
-## 🤖 Retrieval-Augmented Generation
+The system supports ingestion and indexing of:
 
-Instead of sending the whole document to the LLM:
+Format	Supported
+PDF	✅
+DOCX	✅
+PPTX	✅
+XLSX	✅
+CSV	✅
+TXT	✅
+Markdown	✅
+Images / OCR	⚙️ Supported through OCR providers
 
-1. User asks a question.
-2. Semantic search retrieves relevant chunks.
-3. LangGraph constructs context.
-4. Google Gemini generates grounded answers.
-5. Sources are returned alongside the response.
+Each uploaded document can go through:
 
----
+File validation
+Content extraction
+Metadata extraction
+OCR when required
+Adaptive chunking
+Embedding generation
+Vector indexing
+Metadata storage
+Duplicate detection
+✂️ Adaptive Semantic Chunking
 
-## ⚡ Resilient Embedding Pipeline
+The document processing pipeline includes production-oriented chunking capabilities.
 
-Designed to work reliably with external AI providers.
+Features
+Recursive chunk splitting
+Configurable chunk sizes
+Chunk overlap
+Deterministic chunk IDs
+Duplicate detection
+Resume interrupted indexing
+Multi-format content processing
 
-Features include:
+Deterministic chunk IDs help the system avoid creating duplicate vectors when documents are reprocessed.
 
-- Dynamic Batch Sizing
-- Exponential Backoff
-- Retry with Jitter
-- Adaptive Batch Reduction
-- Concurrency Control
-- Duplicate-safe Processing
+🔍 Retrieval-Augmented Generation
 
-> **Note:** When using the Google Gemini Free Tier, very large documents may require several minutes to finish embedding due to provider quota limits. Background asynchronous processing is planned in a future release.
+Instead of sending an entire document directly to the LLM, the system follows this workflow:
 
----
+The user submits a question.
+The question is converted into an embedding.
+Qdrant performs semantic similarity search.
+The most relevant document chunks are retrieved.
+LangGraph constructs the RAG context.
+Google Gemini generates a grounded response.
+Relevant sources are returned to the user.
 
-## 💬 AI Chat
+This approach reduces hallucination and keeps responses grounded in the uploaded documents.
 
-Supports:
+🔄 Resilient Embedding Pipeline
 
-- Conversational RAG
-- Streaming Responses
-- Markdown Rendering
-- Code Blocks
-- Copy Response
-- Source Citations
+The embedding system is designed to handle external AI provider limitations.
 
----
+Features
+Dynamic batch sizing
+Exponential backoff
+Retry with jitter
+Adaptive batch reduction
+Concurrency control
+Duplicate-safe processing
+Resume-safe indexing
+Progress tracking
 
-## 📁 Document Management
+Note: Large documents may require additional processing time when using API providers with rate limits or free-tier quotas.
 
-- Upload Documents
-- Delete Documents
-- Duplicate Detection
-- Already Indexed Detection
-- Chunk Statistics
-- Document Metadata
+💬 AI Chat
 
----
+The AI chat interface supports:
 
-## 📊 Dashboard
+Conversational RAG
+Document-grounded responses
+Streaming responses
+Markdown rendering
+Code blocks
+Copy response functionality
+Source citations
+Conversation management
 
-Real-time monitoring for:
+The system is designed to refuse unsupported questions when relevant information is not found in the indexed documents.
 
-- Backend API
-- Google Gemini
-- PostgreSQL
-- Qdrant
-- Document Count
-- Chunk Count
-- Storage Usage
+📁 Document Management
 
----
+The document management system provides functionality for:
 
-# 🏗 Architecture
+Uploading documents
+Viewing indexed documents
+Deleting documents
+Duplicate detection
+Already-indexed detection
+Chunk statistics
+Document metadata
+Collection management
+📊 Dashboard
 
-```
-                     User
-                       │
-                       ▼
-             Next.js Frontend
-                       │
-             REST / Streaming API
-                       │
-                       ▼
-               FastAPI Backend
-                       │
-       ┌───────────────┼───────────────┐
-       │               │               │
-       ▼               ▼               ▼
- Google Gemini     PostgreSQL      Qdrant
-      │             Metadata     Vector Store
-      └───────────────┬───────────────┘
-                      ▼
-                 LangGraph RAG
-```
+The application dashboard provides system-level monitoring.
 
----
+Health Monitoring
+FastAPI backend status
+Google Gemini connectivity
+PostgreSQL connectivity
+Qdrant connectivity
+System Statistics
+Total documents
+Total chunks
+Indexed collections
+Storage information
+🛠️ Technology Stack
+Frontend
+Next.js
+React
+TypeScript
+Tailwind CSS
+Backend
+Python
+FastAPI
+LangGraph
+SQLAlchemy
+Pydantic
+AI and Machine Learning
+Google Gemini
+Semantic Embeddings
+Retrieval-Augmented Generation
+Databases
+PostgreSQL
+Qdrant Vector Database
+DevOps
+Docker
+Docker Compose
+📸 Application Preview
+Dashboard
 
-# ⚙ Technology Stack
+Upload Documents
 
-## Frontend
+Document Management
 
-- Next.js
-- React
-- TypeScript
-- Tailwind CSS
+AI Chat
 
-## Backend
+🚀 Getting Started
+Prerequisites
 
-- FastAPI
-- LangGraph
-- SQLAlchemy
-- Pydantic
+Make sure the following are installed:
 
-## AI
+Git
+Docker Desktop
+Node.js
+npm
+Google Gemini API Key
+1️⃣ Clone the Repository
+git clone https://github.com/gourav-ai-engineer/RAG.git
+cd RAG
+2️⃣ Configure Environment Variables
 
-- Google Gemini
-- Semantic Embeddings
-- Retrieval-Augmented Generation
+The project uses separate environment files for the frontend and backend.
 
-## Databases
+Create environment files based on the provided examples.
 
-- PostgreSQL
-- Qdrant Vector Database
+Backend
+cd backend
+copy .env.example .env
 
-## DevOps
-
-- Docker
-- Docker Compose
-
----
-
-# 📸 Application Preview
-
-## Dashboard
-
-> ![Dashboard](./screenshots/dashboard.png)
-
----
-
-## Upload Documents
-
-> ![Upload Documents](./screenshots/upload.png)
-
----
-
-## Documents
-
-> ![Documents](./screenshots/documents.png)
-
----
-
-## AI Chat
-
-> ![AI Chat](./screenshots/chat.png)
-
----
-
-# 🚀 Getting Started
-
-## Clone Repository
-
-```bash
-git clone https://github.com/rounakkumarsah/Production-RAG-Agent.git
-
-cd Production-RAG-Agent
-```
-
----
-
-## Configure Environment
-
-Create:
-
-```
-.env
+Then configure the required values in:
 
 backend/.env
-```
 
-Copy values from:
+Example:
 
-```
-.env.example
+GOOGLE_API_KEY=your_google_gemini_api_key
 
-backend/.env.example
-```
+GEMINI_MODEL=gemini-3.6-flash
 
-Configure:
+Never commit your real API keys or .env files to GitHub.
 
-- Google Gemini API Key
-- PostgreSQL
-- Qdrant
+3️⃣ Start the Backend
 
----
-
-## Start Backend
-
-```bash
-cd backend
+From the backend directory:
 
 docker compose up --build
-```
 
----
+This starts:
 
-## Start Frontend
+FastAPI backend
+PostgreSQL
+Qdrant
 
-```bash
-cd ..
+Verify the containers:
+
+docker ps
+
+The backend health endpoint should be available at:
+
+http://localhost:8000/health
+
+Expected example response:
+
+{
+  "status": "ok",
+  "gemini": "connected",
+  "postgres": "connected",
+  "qdrant": "connected"
+}
+4️⃣ Start the Frontend
+
+Open another terminal and navigate to the project root:
+
+cd C:\projects\Production-RAG-Agent-main
+
+Install dependencies:
 
 npm install
 
-npm run dev
-```
+Start the development server:
 
----
+npm run dev
 
 Open:
 
-Frontend
-
-```
 http://localhost:3000
-```
+🌐 Application URLs
+Service	URL
+Frontend	http://localhost:3000
+Backend API	http://localhost:8000
+API Documentation	http://localhost:8000/docs
+Health Check	http://localhost:8000/health
+Qdrant	http://localhost:6333
+🧪 Health Check
 
-Backend
+You can test the backend directly from CMD:
 
-```
-http://localhost:8000
-```
+curl http://localhost:8000/health
 
-Swagger API
+Example successful response:
 
-```
-http://localhost:8000/docs
-```
-
----
-
-# 📂 Project Structure
-
-```
+{
+  "status": "ok",
+  "gemini": "connected",
+  "postgres": "connected",
+  "qdrant": "connected"
+}
+📂 Project Structure
 Production-RAG-Agent/
-
-├── app/
-├── backend/
-│   ├── app/
-│   ├── services/
+│
+├── app/                        # Next.js application pages
+│   ├── chat/
+│   ├── collections/
+│   ├── dashboard/
+│   ├── documents/
+│   └── settings/
+│
+├── components/                 # Reusable frontend components
+│   ├── chat/
+│   ├── collections/
+│   ├── dashboard/
+│   ├── documents/
+│   ├── layout/
+│   └── ui/
+│
+├── lib/                        # Frontend utilities and API clients
 │   ├── api/
+│   ├── hooks/
+│   └── context/
+│
+├── backend/
+│   │
+│   ├── app/
+│   │   ├── api/                # FastAPI routes
+│   │   ├── db/                 # Database models and connections
+│   │   ├── schemas/            # Pydantic schemas
+│   │   ├── services/           # Core application services
+│   │   │   ├── embeddings/
+│   │   │   ├── ocr/
+│   │   │   └── parsers/
+│   │   └── utils/
+│   │
+│   ├── alembic/                # Database migrations
+│   ├── tests/                  # Automated tests
+│   ├── Dockerfile
 │   ├── docker-compose.yml
 │   └── requirements.txt
 │
-├── components/
-├── lib/
-├── public/
+├── screenshots/                # Application screenshots
+│
 ├── package.json
 ├── next.config.ts
+├── tsconfig.json
 └── README.md
-```
+⚙️ Production Engineering Features
 
----
+The project implements several engineering practices commonly required in production AI systems.
 
-# 🔥 Production Engineering Features
+ Deterministic chunk IDs
+ Duplicate document detection
+ Resume interrupted indexing
+ Adaptive batch embedding
+ Exponential backoff
+ Retry with jitter
+ Dynamic batch reduction
+ Similarity threshold filtering
+ Streaming responses
+ Source citations
+ Health monitoring
+ PostgreSQL metadata storage
+ Qdrant vector search
+ Dockerized services
+🧪 Testing
 
-✅ Deterministic Chunk IDs
+The backend contains tests for multiple aspects of the system, including:
 
-✅ Duplicate Document Detection
+Document uploads
+Duplicate detection
+Adaptive chunking
+Retrieval
+Memory
+Concurrent operations
+ZIP bomb protection
+Multi-format document parsing
+Conversation quality
 
-✅ Resume Interrupted Indexing
+Run backend tests from the backend directory:
 
-✅ Adaptive Batch Embedding
+python -m pytest
 
-✅ Exponential Backoff & Retry
+Depending on your environment, individual test scripts can also be executed directly:
 
-✅ Dynamic Batch Reduction
+python test_retrieval.py
+python test_duplicate.py
+python comprehensive_audit.py
+🗺️ Roadmap
 
-✅ Similarity Threshold Filtering
+Future improvements include:
 
-✅ Streaming Responses
-
-✅ Health Monitoring
-
-✅ Dockerized Deployment
-
----
-
-# 📈 Roadmap
-
-- [ ] Background Workers
-- [ ] Async Upload Queue
-- [ ] Redis Cache
-- [ ] User Authentication
-- [ ] Multi-Tenant Support
-- [ ] Role Based Access Control
-- [ ] Observability Dashboard
-- [ ] Kubernetes Deployment
-- [ ] CI/CD Pipeline
-- [ ] Automated Evaluation Suite
-
----
-
-# 🎯 Learning Objectives
+ Background workers
+ Asynchronous upload queue
+ Redis caching
+ User authentication
+ Multi-tenant architecture
+ Role-based access control
+ Advanced observability
+ Automated RAG evaluation
+ CI/CD pipeline
+ Kubernetes deployment
+ Distributed workers
+ Hybrid search
+ Reranking pipeline
+ Advanced document analytics
+🎓 Learning Objectives
 
 This project demonstrates practical experience with:
 
-- Retrieval-Augmented Generation (RAG)
-- AI Engineering
-- Vector Databases
-- Semantic Search
-- LangGraph Workflows
-- Google Gemini APIs
-- Production FastAPI Development
-- Full Stack AI Applications
-- Docker Deployment
-- Enterprise Software Architecture
+Retrieval-Augmented Generation
+AI Engineering
+Large Language Models
+Google Gemini APIs
+Vector Databases
+Semantic Search
+Document Processing
+LangGraph Workflows
+FastAPI Development
+Full-Stack AI Applications
+PostgreSQL
+Docker
+Production System Design
+🔐 Security
 
----
+Important security practices:
 
-# 🤝 Contributing
+Never commit .env files.
+Never expose API keys.
+Use environment variables for secrets.
+Validate uploaded files.
+Apply file-size restrictions.
+Restrict supported file formats.
+Use database credentials securely in production.
 
-Contributions are welcome!
+Before publishing:
 
-If you'd like to improve the project:
+git status
 
-1. Fork the repository
-2. Create a feature branch
-3. Commit your changes
-4. Open a Pull Request
+Verify that files such as these are not being tracked:
 
----
+.env
+backend/.env
+node_modules/
+.venv/
+__pycache__/
 
-# 📄 License
+You can check tracked environment files using:
+
+git ls-files | findstr /i ".env"
+
+Only example environment files should normally appear:
+
+.env.example
+backend/.env.example
+🤝 Contributing
+
+Contributions are welcome.
+
+To contribute:
+
+Fork the repository.
+Create a feature branch.
+git checkout -b feature/your-feature-name
+Make your changes.
+Run tests.
+Commit your changes.
+git add .
+git commit -m "feat: add your feature"
+Push your branch.
+git push origin feature/your-feature-name
+Open a Pull Request.
+📄 License
 
 This project is licensed under the MIT License.
 
----
+See the LICENSE file for details.
 
-# 👨‍💻 Author
+👨‍💻 Author
+Gourav
 
-## Rounak Kumar Sah
+AI Engineer | Software Engineer | M.Tech CSE (Artificial Intelligence)
 
-**AI Automation Engineer | AI Agent Developer | GenAI Engineer**
-
-### Tech Stack
-
-- Python
-- FastAPI
-- LangGraph
-- Next.js
-- TypeScript
-- PostgreSQL
-- Qdrant
-- Docker
-- Google Gemini
-- n8n Automation
-
----
-
+Interests
+Artificial Intelligence
+Generative AI
+Retrieval-Augmented Generation
+AI Agents
+Machine Learning
+Backend Engineering
+Distributed Systems
+Production AI Systems
+Tech Stack
+Python
+FastAPI
+LangGraph
+Next.js
+TypeScript
+PostgreSQL
+Qdrant
+Docker
+Google Gemini
 <div align="center">
-
-⭐ If you found this project useful, please consider giving it a Star.
-
-</div>
