@@ -63,7 +63,7 @@ services:
     environment:
       # Override host names so the app talks to Docker service names
       POSTGRES_HOST: postgres
-      QDRANT_HOST: qdrant
+      QDRANT_HOST: http://qdrant:6333
     ports:
       - "8000:8000"
     networks:
