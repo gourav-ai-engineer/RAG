@@ -47,7 +47,7 @@ export function AppHeader({ activePath }: { activePath: string }) {
         </nav>
 
         <div className="flex size-9 items-center justify-center rounded-full bg-gradient-to-br from-primary to-violet-600 text-xs font-semibold text-white shadow-sm">
-          SA
+          G
         </div>
       </div>
     </header>

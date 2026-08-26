@@ -185,13 +185,6 @@ Live status of the backend, Gemini, PostgreSQL, and Qdrant, along with document 
   <img src="./screenshots/dashboard.png" width="900"/>
 </p>
 
-### 📤 Upload Documents
-Drag-and-drop ingestion with validation, duplicate detection, and progress tracking.
-
-<p align="center">
-  <img src="./screenshots/upload.png" width="900"/>
-</p>
-
 ### 📚 Document Management
 Browse indexed documents, view chunk statistics, and manage collections.
 
@@ -204,6 +197,14 @@ Conversational, streaming RAG chat with markdown rendering and inline source cit
 
 <p align="center">
   <img src="./screenshots/chat.png" width="900"/>
+</p>
+
+### ⚙️ Settings
+
+Configure application and RAG-related settings from a dedicated settings interface.
+
+<p align="center">
+  <img src="./screenshots/setting.png" width="900" alt="Settings"/>
 </p>
 
 ---
