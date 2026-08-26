@@ -39,7 +39,7 @@ export async function apiFetch<T>(
   path: string,
   init?: RequestInit & { timeout?: number }
 ): Promise<T> {
-  const timeoutMs = init?.timeout ?? 30000; // default 30s
+  const timeoutMs = init?.timeout ?? 90000; // default 30s
   const controller = new AbortController();
   const timeoutId = setTimeout(() => controller.abort(), timeoutMs);
 
